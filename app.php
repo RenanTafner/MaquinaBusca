@@ -13,7 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
 
-class GreetCommand extends Command
+class SearchCommand extends Command
 {
     protected function configure()
     {
@@ -28,10 +28,10 @@ class GreetCommand extends Command
         $result = $wikipedia->search($input->getArgument('name'));
 
         $output->writeln("<fg=yellow>". str_pad("",198,"=")."</>");
-        $output->writeln("<fg=yellow>". $result->count() . " results was found for term '".$input->getArgument('name')."' on 'wikipedia'</>");
+        $output->writeln("<fg=yellow>". $result->count() . " result(s) was found for term '".$input->getArgument('name')."' on 'wikipedia'</>");
         $output->writeln("<fg=yellow>". str_pad("",198,"=")."</>");
 
-        $output->writeln("Showing first 20 results:");
+        $output->writeln("Showing first ". $result->countItemsOnPage() . " result(s):");
 
         
         //$output->writeln(str_pad("",27,"-"). " ". str_pad("",173,"-"));
@@ -52,13 +52,9 @@ class GreetCommand extends Command
             ->setRows($rows);
         $table->render();
 
-
-
-
-
         return 0;
     }
 }
 $app = new Application();
-$app->add(new GreetCommand());
+$app->add(new SearchCommand());
 $app->run();
