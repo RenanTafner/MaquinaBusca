@@ -18,8 +18,8 @@ class GreetCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('greet')
-            ->setDescription('Greet the given person name')
+            ->setName('search')
+            ->setDescription('Search the given term')
             ->addArgument('name', InputArgument::REQUIRED, 'The person name');
     }
     protected function execute(InputInterface $input, OutputInterface $output)
