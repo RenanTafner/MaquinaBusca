@@ -18,9 +18,9 @@ class SearchCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('search')
-            ->setDescription('Search the given term')
-            ->addArgument('name', InputArgument::REQUIRED, 'The person name');
+            ->setName('searchWikipedia')
+            ->setDescription('Search the given term in Wikipedia')
+            ->addArgument('name', InputArgument::REQUIRED, 'The term name');
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -33,18 +33,9 @@ class SearchCommand extends Command
 
         $output->writeln("Showing first ". $result->countItemsOnPage() . " result(s):");
 
-        
-        //$output->writeln(str_pad("",27,"-"). " ". str_pad("",173,"-"));
-        //$output->writeln("<fg=green> Title</>". str_pad("",23," ") . "<fg=green>Preview</>");
-        //$output->writeln(str_pad("",27,"-"). " ". str_pad("",173,"-"));
-
-
         foreach($result as $resultItem){
-        //        $output->writeln(str_pad($resultItem->getTitle(),28) . " " . $resultItem->getPreview());
                 $rows[] = [$resultItem->getTitle(), $resultItem->getPreview()];
         }
-
-        //$output->writeln(str_pad("",27,"-"). " ". str_pad("",173,"-"));
 
         $table = new Table($output);
         $table
