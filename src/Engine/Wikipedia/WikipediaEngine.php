@@ -34,9 +34,22 @@ class WikipediaEngine implements EngineInterface
     public function search(string $term): Result
     {
         $url = sprintf(self::URI, $term);
+
         $response = $this->client->request('GET', $url);
 
-        return $this->parser->parse($response->getContent());
+        $foundNoResultString = strpos($response->getContent(), 'não produziu resultados');
+
+        if($foundNoResultString){
+
+            $emptyResult = new Result(0,[]);
+
+            return $emptyResult;
+
+        } else{
+
+         return $this->parser->parse($response->getContent());
+    }
+
     }
 
     public static function getName(): String

@@ -27,6 +27,14 @@ class SearchCommand extends Command
         $wikipedia = new WikipediaEngine(new WikipediaParser(), HttpClient::create());
         $result = $wikipedia->search($input->getArgument('name'));
 
+        if(count($result) === 0)
+        {
+            $output->writeln("<fg=red>". str_pad("",198,"=")."</>");
+            $output->writeln("<fg=red>". "No results found for term '".$input->getArgument('name')."' on 'wikipedia'</>");
+            $output->writeln("<fg=red>". str_pad("",198,"=")."</>");
+            return 0;  
+       }
+
         $output->writeln("<fg=yellow>". str_pad("",198,"=")."</>");
         $output->writeln("<fg=yellow>". $result->count() . " result(s) was found for term '".$input->getArgument('name')."' on 'wikipedia'</>");
         $output->writeln("<fg=yellow>". str_pad("",198,"=")."</>");
