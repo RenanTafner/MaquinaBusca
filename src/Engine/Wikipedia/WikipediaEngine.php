@@ -37,9 +37,9 @@ class WikipediaEngine implements EngineInterface
 
         $response = $this->client->request('GET', $url);
 
-        $foundNoResultString = str_contains($response->getContent(), 'não produziu resultados');
+        $foundNoResults = str_contains($response->getContent(), 'não produziu resultados');
 
-        if($foundNoResultString){
+        if($foundNoResults){
 
             $emptyResult = new Result(0,[]);
 
